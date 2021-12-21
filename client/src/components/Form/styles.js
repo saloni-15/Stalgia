@@ -1,4 +1,3 @@
-import { yellow } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
@@ -9,7 +8,6 @@ export default makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    backgroundColor: yellow,
   },
   form: {
     display: "flex",
@@ -19,6 +17,7 @@ export default makeStyles((theme) => ({
   fileInput: {
     width: "97%",
     margin: theme.spacing(1),
+
     //margin: "10px 0",
   },
   buttonSubmit: {
