@@ -4,9 +4,10 @@ import * as api from "../api";
 // action-> type + payload
 // payload-> data to store all posts.
 
+
+// const action = {type: 'FETCH_ALL', payload: []}
+// dispatch(action);
 export const getPosts = () => async (dispatch) => {
-  // const action = {type: 'FETCH_ALL', payload: []}
-  // dispatch(action);
   try {
     const { data } = await api.fetchPosts();
     dispatch({ type: "FETCH_ALL", payload: data });
@@ -32,3 +33,22 @@ export const updatePost = (id, post) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await api.deletePost(id);
+    dispatch({ type: "DELETE", payload: id });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const likePost = (id) => async (dispatch) => {
+  try {
+    const {data} = await api.likePost(id);
+    dispatch({ type: "LIKE", payload: data });
+
+  } catch (err) {
+    console.log(err);
+  }
+}
