@@ -8,7 +8,6 @@ import { createPost, updatePost } from "../../actions/posts.js";
 // GET THE CURRENT POST ID (form <- post <- App.js)
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
@@ -20,8 +19,8 @@ const Form = ({ currentId, setCurrentId }) => {
   ); //to get the previously filled data of the updating post
 
   const classes = useStyles();
-
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
     if (post) setPostData(post); //populate the post value
@@ -32,17 +31,28 @@ const Form = ({ currentId, setCurrentId }) => {
 
     //if currentId != null, means we are requesting for updating the post, otherwise the request is for create new post.
     if (currentId) {
-      dispatch(updatePost(currentId, postData));
+      dispatch(
+        updatePost(currentId, { ...postData, name: user?.result?.name })
+      );
     } else {
-      dispatch(createPost(postData)); //action dispatched, move to reducers
+      dispatch(createPost({ ...postData, name: user?.result?.name })); //action dispatched, move to reducers
     }
     clear();
   };
 
+   if (!user?.result?.name) {
+     return (
+       <Paper className={classes.paper}>
+         <Typography variant="h6" align="center">
+           Please Sign In to create your own memories and like other's memories.
+         </Typography>
+       </Paper>
+     );
+   }
+
   const clear = () => {
     setCurrentId(null); //reset the currentId to null after updating
     setPostData({
-      creator: "",
       title: "",
       message: "",
       tags: "",
@@ -62,16 +72,6 @@ const Form = ({ currentId, setCurrentId }) => {
           {currentId ? "Editing" : "Creating"} a Memory
         </Typography>
         <TextField
-          name="creator"
-          variant="outlined"
-          label="Creator"
-          fullWidth
-          value={postData.creator}
-          onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
-          }
-        />
-        <TextField
           name="title"
           variant="outlined"
           label="Title"
@@ -83,6 +83,8 @@ const Form = ({ currentId, setCurrentId }) => {
           name="message"
           variant="outlined"
           label="Message"
+          multiline={true}
+          rows={4}
           fullWidth
           value={postData.message}
           onChange={(e) =>
@@ -92,10 +94,12 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField
           name="tags"
           variant="outlined"
-          label="Tags"
+          label="Tags (coma separated)"
           fullWidth
           value={postData.tags}
-          onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
+          onChange={(e) =>
+            setPostData({ ...postData, tags: e.target.value.split(",") })
+          }
         />
         <div className={classes.fileInput}>
           <FileBase
