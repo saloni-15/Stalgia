@@ -3,9 +3,29 @@ import PostMessage from "../models/postMessage.js";
 
 //GET POSTS
 export const getPosts = async (req, res) => {
+  const {page} = req.query;
   try {
-    const postMessages = await PostMessage.find();
-    res.status(200).json(postMessages);
+    const LIMIT = 8;
+    const startIndex = (Number(page)-1)*LIMIT;
+    const total = await PostMessage.countDocuments({});
+    const posts = await PostMessage.find().sort({_id:-1}).limit(LIMIT).skip(startIndex);
+    res.status(200).json({data:posts, currenPage:Number(page), numberOfPages:Math.ceil(total/LIMIT)});
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+//GET POSTS BY SEARCH
+//QUERY -> /posts?page=1 -> page=1
+//PARAMS -> /posts/123 -> id=123
+export const getPostsBySearch = async (req, res) => {
+  const { searchQuery, tags } = req.query;
+  try {
+    const title = new RegExp(searchQuery, 'i');
+    const posts = await PostMessage.find({
+      $or: [{ title }, { tags: { $in: tags.split('i') } }],
+    });
+    res.json({ data: posts });
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -15,7 +35,11 @@ export const getPosts = async (req, res) => {
 export const createPost = async (req, res) => {
   const post = req.body;
 
-  const newPost = new PostMessage({...post, creator:req.userId, createdAt: new Date().toISOString()});
+  const newPost = new PostMessage({
+    ...post,
+    creator: req.userId,
+    createdAt: new Date().toISOString(),
+  });
 
   try {
     await newPost.save();
@@ -82,12 +106,9 @@ export const likePost = async (req, res) => {
     post.likes = post.likes.filter((id) => id !== String(req.userId));
   }
 
-  const updatedPost = await PostMessage.findByIdAndUpdate(
-    id,
-    post,
-    { new: true }
-  );
+  const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
+    new: true,
+  });
 
   res.status(200).json(updatedPost);
-  
 };

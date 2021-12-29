@@ -1,9 +1,12 @@
 import {
   FETCH_ALL,
+  FETCH_BY_SEARCH,
   CREATE,
   UPDATE,
   DELETE,
   LIKE,
+  START_LOADING,
+  END_LOADING
 } from "../constants/actionTypes";
 import * as api from "../api";
 
@@ -13,10 +16,21 @@ import * as api from "../api";
 
 // const action = {type: 'FETCH_ALL', payload: []}
 // dispatch(action);
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts();
+    const { data } = await api.fetchPosts(page);
     dispatch({ type: FETCH_ALL, payload: data });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getPostsBySearch = (searchQuery) => async (dispatch) => {
+  try {
+    const {
+      data: { data },
+    } = await api.fetchPostsBySearch(searchQuery);
+     dispatch({ type: FETCH_BY_SEARCH, payload: data });
   } catch (err) {
     console.log(err);
   }

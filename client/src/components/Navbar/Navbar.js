@@ -3,6 +3,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
 import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
+import { LOGOUT } from "../../constants/actionTypes";
+import StalgiaLogo from "../../images/StalgiaLogo.png";
 import useStyles from "./styles";
 
 const Navbar = () => {
@@ -13,7 +15,7 @@ const Navbar = () => {
   const location = useLocation();
 
   const logout = () => {
-    dispatch({ type: "LOGOUT" });
+    dispatch({ type: LOGOUT });
     navigate("/");
     setUser(null);
   };
@@ -31,17 +33,9 @@ const Navbar = () => {
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
-      <div className={classes.brandContainer}>
-        <Typography
-          component={Link}
-          to="/"
-          className={classes.heading}
-          variant="h3"
-          align="center"
-        >
-          Memories
-        </Typography>
-      </div>
+      <Link to="/" className={classes.brandContainer}>
+        <img src={StalgiaLogo} alt="icon" height="45px" />
+      </Link>
       <Toolbar className={classes.toolbar}>
         {
           //will have the logic, if user is logged in, show profile logic, otherwise dont show profile

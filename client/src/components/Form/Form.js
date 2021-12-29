@@ -61,7 +61,7 @@ const Form = ({ currentId, setCurrentId }) => {
   };
 
   return (
-    <Paper className={classes.Paper}>
+    <Paper className={classes.paper} raised elevation={6}>
       <form
         autoComplete="off"
         noValidate
@@ -84,7 +84,7 @@ const Form = ({ currentId, setCurrentId }) => {
           variant="outlined"
           label="Message"
           multiline={true}
-          rows={4}
+          rows={2}
           fullWidth
           value={postData.message}
           onChange={(e) =>
@@ -124,7 +124,7 @@ const Form = ({ currentId, setCurrentId }) => {
           className={classes.buttonClear}
           variant="contained"
           color="secondary"
-          size="large"
+          size="small"
           onClick={clear}
           fullWidth
         >

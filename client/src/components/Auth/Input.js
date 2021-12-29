@@ -4,10 +4,10 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const Input = ({
+  half,
   name,
   handleChange,
   label,
-  half,
   autoFocus,
   type,
   handleShowPassword,

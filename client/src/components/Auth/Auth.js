@@ -16,22 +16,22 @@ import Icon from "./Icon";
 import useStyles from "./styles";
 import {signin, signup} from "../../actions/auth";
 
-const initialState = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-};
 
 const Auth = () => {
   const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
-  const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -87,13 +87,13 @@ const Auth = () => {
                   handleChange={handleChange}
                   autoFocus
                   half
-                />
+                ></Input>
                 <Input
                   name="lastname"
                   label="Last Name"
                   handleChange={handleChange}
                   half
-                />
+                ></Input>
               </>
             )}
             <Input
@@ -101,21 +101,21 @@ const Auth = () => {
               label="Email Address"
               handleChange={handleChange}
               type="email"
-            />
+            ></Input>
             <Input
               name="password"
               label="Password"
               handleChange={handleChange}
               type={showPassword ? "text" : "password"}
               handleShowPassword={handleShowPassword}
-            />
+            ></Input>
             {isSignup && (
               <Input
                 name="confirmPassword"
                 label="Confirm Password"
                 handleChange={handleChange}
                 type="password"
-              />
+              ></Input>
             )}
           </Grid>
           <Button

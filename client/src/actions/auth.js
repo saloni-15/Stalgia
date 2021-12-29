@@ -4,8 +4,8 @@ import * as api from "../api";
 export const signin = (formData, navigate) => async (dispatch) => {
   try {
     //login the user
-    const {data} = await api.signIn(formData)
-    dispatch({type:AUTH, data})
+    const { data } = await api.signIn(formData);
+    dispatch({ type: AUTH, data });
     navigate("/");
   } catch (err) {
     console.log(err);

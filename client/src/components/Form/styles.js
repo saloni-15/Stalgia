@@ -4,21 +4,21 @@ export default makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
+      height:""
     },
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
+    //height: "300px",
   },
   form: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
+    //height: "100%",
   },
   fileInput: {
-    width: "97%",
-    margin: theme.spacing(1),
-
-    //margin: "10px 0",
+    width: "90%",
   },
   buttonSubmit: {
     marginBottom: 10,

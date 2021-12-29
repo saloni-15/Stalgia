@@ -5,28 +5,29 @@ import Post from "./Post/Post";
 import useStyles from "./styles.js";
 
 const Posts = ({ setCurrentId }) => {
-  const posts = useSelector((state) => state.posts);
+  const {posts} = useSelector((state) => state.posts); //[] -> {posts:}
   const classes = useStyles();
 
-  console.log(posts);
+  //console.log(posts);
   return (
     //if(no posts) then loading sign else grid of posts will show up
-    !posts.length ? (
+    !posts?.length ? (
       <CircularProgress />
     ) : (
       <Grid
-        className={classes.mainContainer}
+        className={classes.container}
         container
         alignItems="stretch"
         spacing={3}
       >
-        {posts.map((post) => (
+        {posts?.map((post) => (
           <Grid
             key={post._id}
             item
             xs={12}
-            sm={6}
+            sm={12}
             md={6}
+            lg={3}
           >
             <Post post={post} setCurrentId={setCurrentId} />
           </Grid>
