@@ -11,7 +11,7 @@ import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/search", getPostsBySearch)
+router.get("/search", getPostsBySearch);
 router.get("/", getPosts); //to fetch all posts
 router.post("/", auth, createPost); //to create new post
 router.patch("/:id", auth, updatePost); //to update existing document

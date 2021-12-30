@@ -47,8 +47,8 @@ export default makeStyles({
   title: {
     padding: "0 10px",
   },
-  message:{
-     padding: "0 0",
+  message: {
+    padding: "0 0",
   },
   cardActions: {
     padding: "0 12px 6px 12px",

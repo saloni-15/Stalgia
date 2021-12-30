@@ -3,13 +3,20 @@ import PostMessage from "../models/postMessage.js";
 
 //GET POSTS
 export const getPosts = async (req, res) => {
-  const {page} = req.query;
+  const { page } = req.query;
   try {
     const LIMIT = 8;
-    const startIndex = (Number(page)-1)*LIMIT;
+    const startIndex = (Number(page) - 1) * LIMIT;
     const total = await PostMessage.countDocuments({});
-    const posts = await PostMessage.find().sort({_id:-1}).limit(LIMIT).skip(startIndex);
-    res.status(200).json({data:posts, currenPage:Number(page), numberOfPages:Math.ceil(total/LIMIT)});
+    const posts = await PostMessage.find()
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+    res.status(200).json({
+      data: posts,
+      currenPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+    });
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -21,9 +28,9 @@ export const getPosts = async (req, res) => {
 export const getPostsBySearch = async (req, res) => {
   const { searchQuery, tags } = req.query;
   try {
-    const title = new RegExp(searchQuery, 'i');
+    const title = new RegExp(searchQuery, "i");
     const posts = await PostMessage.find({
-      $or: [{ title }, { tags: { $in: tags.split('i') } }],
+      $or: [{ title }, { tags: { $in: tags.split("i") } }],
     });
     res.json({ data: posts });
   } catch (err) {

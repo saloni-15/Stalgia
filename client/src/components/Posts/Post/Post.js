@@ -64,7 +64,7 @@ const Post = ({ post, setCurrentId }) => {
         </Typography>
       </div>
 
-      {(user?.result?.googleId === post?.creator ||
+      {/* {(user?.result?.googleId === post?.creator ||
         user?.result?._id === post?.creator) && (
         <div className={classes.overlay2}>
           <Button
@@ -78,7 +78,7 @@ const Post = ({ post, setCurrentId }) => {
             <MoreHorizIcon fontSize="default" />
           </Button>
         </div>
-      )}
+      )} */}
 
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary" component="h2">
@@ -94,7 +94,12 @@ const Post = ({ post, setCurrentId }) => {
         {post.title}
       </Typography>
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p" className={classes.message}>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          component="p"
+          className={classes.message}
+        >
           {post.message}
         </Typography>
       </CardContent>

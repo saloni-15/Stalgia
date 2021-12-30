@@ -14,8 +14,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Input";
 import Icon from "./Icon";
 import useStyles from "./styles";
-import {signin, signup} from "../../actions/auth";
-
+import { signin, signup } from "../../actions/auth";
 
 const Auth = () => {
   const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
@@ -31,7 +30,6 @@ const Auth = () => {
     password: "",
     confirmPassword: "",
   });
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -135,7 +133,6 @@ const Auth = () => {
                 color="secondary"
                 fullWidth
                 onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
                 startIcon={<Icon />}
                 variant="contained"
               >
