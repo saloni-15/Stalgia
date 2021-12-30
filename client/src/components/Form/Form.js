@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import { useSelector, useDispatch } from "react-redux";
+import {useNavigate} from "react-router-dom";
 import useStyles from "./styles.js";
 import { createPost, updatePost } from "../../actions/posts.js";
 
@@ -15,11 +16,12 @@ const Form = ({ currentId, setCurrentId }) => {
   });
 
   const post = useSelector((state) =>
-    currentId ? state.posts.find((p) => p._id === currentId) : null
+    currentId ? state.posts.posts.find((p) => p._id === currentId) : null
   ); //to get the previously filled data of the updating post
 
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
@@ -36,6 +38,7 @@ const Form = ({ currentId, setCurrentId }) => {
       );
     } else {
       dispatch(createPost({ ...postData, name: user?.result?.name })); //action dispatched, move to reducers
+      navigate("/");
     }
     clear();
   };

@@ -12,7 +12,7 @@ import {
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import DeleteIcon from "@material-ui/icons/Delete";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import EditOutlined from "@material-ui/icons/EditOutlined";  
 import moment from "moment";
 import useStyles from "./styles.js";
 import { useDispatch } from "react-redux";
@@ -64,7 +64,7 @@ const Post = ({ post, setCurrentId }) => {
         </Typography>
       </div>
 
-      {/* {(user?.result?.googleId === post?.creator ||
+      {(user?.result?.googleId === post?.creator ||
         user?.result?._id === post?.creator) && (
         <div className={classes.overlay2}>
           <Button
@@ -75,10 +75,10 @@ const Post = ({ post, setCurrentId }) => {
               setCurrentId(post._id); //pass to Form and App
             }}
           >
-            <MoreHorizIcon fontSize="default" />
+            <EditOutlined fontSize="inherit" style={{ fontSize: "20px" }} />
           </Button>
         </div>
-      )} */}
+      )}
 
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary" component="h2">
