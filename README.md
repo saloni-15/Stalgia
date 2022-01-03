@@ -81,3 +81,44 @@ A Full-stack MERN application with basic CRUD operations. A simple social media 
     "mongoose": "^6.1.1"
 ```
 
+## LOCAL ENVIRONMENT SETUP 
+- Clone repository 
+```git
+git clone https://github.com/saloni-15/Stalgia.git
+```
+- cd `Stalgia`
+
+- Go to server, `cd server`.
+
+- Install the dependencies
+```npm
+npm install
+```
+
+- Inside `/server` create `.env` file and add this
+```
+ATLAS_URI=mongodb://localhost:27017/stalgia
+```
+
+- Testing : Run `mongod` command on your terminal/ bash to start the Mongo server on port 27017(default)
+
+- Start server by running `npm start` inside `server`.
+
+- In another terminal, move to client, `cd client`.
+ 
+- Install the dependencies
+```npm
+npm install
+```
+- Update the API in index.js inside `api` folder, `client\src\api\index.js`
+  ```jsx
+  const API = axios.create({ baseURL: "http://localhost:5000" });
+  ```
+  
+- Inside `/client` create `.env` file, get your client ID by adding your project to Google Developer Console and add the client ID to `.env` file like,
+```
+REACT_APP_CLIENT_ID=YOUR_CLIENT_ID
+```
+- Start client by running `npm start` inside `client`.
+
+
